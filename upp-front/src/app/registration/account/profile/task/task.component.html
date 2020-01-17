@@ -1,0 +1,29 @@
+<body>
+
+  <h2 style="text-align:center">Author Profile Card</h2>
+
+  <div class="card">
+    <img src="assets/images/user.jpg" alt="John" style="width:100%">
+    <h1>{{task.customUser.firstName}} {{task.customUser.lastName}}</h1>
+    <p class="title">{{task.customUser.designation}}</p>
+    <p>{{task.customUser.city}}, {{task.customUser.country}}</p>
+    <div style="margin: 24px 0;">
+      <a href="#"><i class="fa fa-dribbble"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+      <a href="#"><i class="fa fa-facebook"></i></a>
+    </div>
+    <hr>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)">
+      <div *ngFor="let field of task.formdataDto.fields">
+        <label for={{field.id}} *ngIf="field.type.name!='enum'">{{field.label}}</label>
+        <input type="text" name={{field.id}} ngModel *ngIf="field.type.name=='string'">
+        <input type="checkbox" name={{field.id}} ngModel *ngIf="field.type.name=='boolean'">
+        <input type="number" name={{field.id}} ngModel *ngIf="field.type.name=='long'">
+      </div>
+      <button type="submit">Complete task</button>
+    </form>
+    <hr>
+  </div>
+
+</body>

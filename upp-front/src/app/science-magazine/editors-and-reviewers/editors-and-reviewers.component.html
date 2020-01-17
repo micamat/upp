@@ -1,0 +1,119 @@
+<body>
+
+    <h2 style="text-align:center" *ngIf="task.name == 'Add editors and reviewers'">Editors and reviewers for the
+        magazine.</h2>
+    <h2 style="text-align:center" *ngIf="task.name == 'Check magazine data'">Activating magazine.</h2>
+
+    <div class="card">
+        <img src="assets/images/editor-reviewer.png" alt="John" style="width:100%"
+            *ngIf="task.name == 'Add editors and reviewers'">
+        <img src="assets/images/science.jpg" alt="John" style="width:100%" *ngIf="task.name == 'Check magazine data'">
+        <h1>{{task.magazine.name}}</h1>
+        <hr>
+        <div *ngIf="task.name == 'Check magazine data'">
+            <table class="table table-condensed">
+                <tr>
+
+                    <td><label>Name:</label></td>
+                    <td><label>{{task.magazine.name}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>ISSN:</label></td>
+                    <td><label>{{task.magazine.issn}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Is open-access:</label></td>
+                    <td><label>{{task.magazine.isOpenAcces}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Editors:</label></td>
+                    <td><label>{{task.magazine.editors}}</label></td>
+                </tr>
+                <tr>
+                    <td><label>Reviewers:</label></td>
+                    <td><label>{{task.magazine.reviewers}}</label></td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="task.name == 'Correct data'">
+            <table class="table table-condensed">
+                <tr>
+
+                    <td><label>Name:</label></td>
+                    <td><input type="text" value="{{task.magazine.name}}" [(ngModel)]="updatedMagazine.name"></td>
+                </tr>
+                <tr>
+                    <td><label>ISSN:</label></td>
+                    <td><input type="text" value="{{task.magazine.issn}}" [(ngModel)]="updatedMagazine.issn"></td>
+                </tr>
+                <tr>
+                    <td><label>Is open-access:</label></td>
+                    <td><input type="text" value="{{task.magazine.isOpenAcces}}"
+                            [(ngModel)]="updatedMagazine.isOpenAcces"></td>
+                </tr>
+                <tr>
+                    <td><label>Editors:</label></td>
+                    <td><input type="text" value="{{task.magazine.editors}}" [(ngModel)]="updatedMagazine.editors"></td>
+                </tr>
+                <tr>
+                    <td><label>Reviewers:</label></td>
+                    <td><input type="text" value="{{task.magazine.reviewers}}" [(ngModel)]="updatedMagazine.reviewers">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)">
+            <div *ngFor="let field of task.formdataDto.fields">
+                <label for={{field.id}} *ngIf="field.type.name!='enum'">{{field.label}}</label>
+                <input type="text" name={{field.id}} ngModel *ngIf="field.type.name=='string'">
+                <input type="checkbox" name={{field.id}} ngModel *ngIf="field.type.name=='boolean'">
+                <input type="number" name={{field.id}} ngModel *ngIf="field.type.name=='long'">
+                <div *ngIf="field.type.name=='enum'">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label for={{field.id}}>{{field.label}}</label>
+                                    <select name={{field.id}} [(ngModel)]="selectedEditor"
+                                        *ngIf="field.id == 'editors'">
+                                        <option *ngFor="let editor of editors" value={{editor.username}}>
+                                            {{editor.firstName}} {{editor.lastName}}
+                                        </option>
+                                    </select>
+                                    <select name={{field.id}} [(ngModel)]="selectedReviewer"
+                                        *ngIf="field.id == 'reviewers'">
+                                        <option *ngFor="let rev of reviewers" value={{rev.username}}>
+                                            {{rev.firstName}} {{rev.lastName}}
+                                        </option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <button type="button" class="btn btn-success" (click)="onAddEditor()"
+                                        *ngIf="field.id == 'editors'">Add</button>
+                                    <button type="button" class="btn btn-success" (click)="onAddReviewer()"
+                                        *ngIf="field.id == 'reviewers'">Add</button>
+                                </th>
+                                <th>
+                                    <ul class="list-group" *ngIf="field.id == 'editors'">
+                                        <li class="list-group-item" *ngFor="let c of chosenEditors">
+                                            {{c.firstName}} {{c.lastName}}
+                                        </li>
+                                    </ul>
+                                    <ul class="list-group" *ngIf="field.id == 'reviewers'">
+                                        <li class="list-group-item" *ngFor="let c of chosenReviewers">
+                                            {{c.firstName}} {{c.lastName}}</li>
+                                    </ul>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <button type="submit"
+                *ngIf="chosenReviewers.length >= 2 || task.name == 'Check magazine data' || task.name == 'Correct data'">Complete
+                task</button>
+        </form>
+        <hr>
+    </div>
+
+</body>

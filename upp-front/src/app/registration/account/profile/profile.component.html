@@ -1,0 +1,11 @@
+<mat-nav-list *ngFor="let task of userTasks" (click)="taskChosen(task)">
+  <mat-list-item *ngIf="task.customUser != null">
+    {{task.name}} for user {{task.customUser.firstName}} {{task.customUser.lastName}}
+  </mat-list-item>
+  <mat-list-item *ngIf="task.magazine != null">
+    <div *ngIf="task.name == 'Add editors and reviewers'">Add editors and reviewers for magazine
+      "{{task.magazine.name}}".</div>
+    <div *ngIf="task.name == 'Check magazine data'">Check data for magazine "{{task.magazine.name}}"</div>
+    <div *ngIf="task.name == 'Correct data'">Correct data for magazine "{{task.magazine.name}}"</div>
+  </mat-list-item>
+</mat-nav-list>

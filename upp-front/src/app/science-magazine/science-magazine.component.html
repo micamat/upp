@@ -1,0 +1,40 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)">
+  <div class="container">
+    <h1>Science Magazine</h1>
+    <p>Please fill in this form to create science magazine.</p>
+
+    <hr>
+    <div *ngFor="let field of fields">
+      <label for={{field.id}} *ngIf="field.type.name!='enum'">{{field.label}}</label>
+      <input type="text" name={{field.id}} ngModel *ngIf="field.type.name=='string'">
+      <input type="checkbox" name={{field.id}} ngModel *ngIf="field.type.name=='boolean'">
+      <input type="number" name={{field.id}} ngModel *ngIf="field.type.name=='long'">
+      <div *ngIf="field.type.name=='enum'">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <label for={{field.id}}>{{field.label}}</label>
+                <select name={{field.id}} [(ngModel)]="selectedScienceField">
+                  <option *ngFor="let val of scienceFields" value={{val}}>
+                    {{field.type.values[val]}}
+                  </option>
+                </select>
+              </th>
+              <th>
+                <button type="button" class="btn btn-success" (click)="onAdd()">Add</button>
+              </th>
+              <th>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let c of chosenScienceFields">{{c}}</li>
+                </ul>
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <hr>
+    <button type="submit" class="registerbtn">Add Magazine</button>
+  </div>
+</form>
