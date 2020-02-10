@@ -40,6 +40,7 @@ public class ProcessExecutionListener implements ExecutionListener {
 
 	@Override
 	public void notify(DelegateExecution execution) throws Exception {
+		execution.getProcessEngineServices().getIdentityService().setAuthenticatedUserId("test");
 		List<User> users = identityService.createUserQuery().userIdIn("pera").list();
 		List<User> editors = identityService.createUserQuery().userIdIn("mika", "laza").list();
 		CustomUser cu = new CustomUser();

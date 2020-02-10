@@ -1,12 +1,16 @@
 package upp.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class CustomUser implements Serializable{
@@ -37,6 +41,14 @@ public class CustomUser implements Serializable{
 	private Boolean isReviewer;
 	@Column
 	private String role;
+	@Column
+	private Boolean hasActiveFee; 
+	
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Article> articles;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Comment> comments;
 	
 	public String getFirstName() {
 		return firstName;
@@ -116,6 +128,12 @@ public class CustomUser implements Serializable{
 	}
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+	public Boolean getHasActiveFee() {
+		return hasActiveFee;
+	}
+	public void setHasActiveFee(Boolean hasActiveFee) {
+		this.hasActiveFee = hasActiveFee;
 	}
 	
 }

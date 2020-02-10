@@ -23,4 +23,15 @@ export class AppComponent {
       }
     );
   }
+
+  proba() {
+    this.registrationService.proba().subscribe(
+      success => {
+        console.log("success");
+      },
+      err => {
+        console.log("error");
+      }
+    );
+  }
 }

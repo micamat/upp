@@ -1,0 +1,20 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value, f)">
+  <div class="container">
+    <hr>
+    <div *ngFor="let field of fields">
+      <label>{{field.label}}</label>
+      <input type="text" name={{field.id}} ngModel *ngIf="field.type.name=='string'">
+      <input type="checkbox" name={{field.id}} ngModel *ngIf="field.type.name=='boolean'">
+      <input type="number" name={{field.id}} ngModel *ngIf="field.type.name=='long'">
+      <div *ngIf="field.type.name=='enum'">
+        <select name={{field.id}} [(ngModel)]="selected">
+          <option *ngFor="let val of enumValues" value="{{field.type.values[val]}}">
+            {{field.type.values[val]}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <button type="submit" class="registerbtn">Complete</button>
+  </div>
+</form>

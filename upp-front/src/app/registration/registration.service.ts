@@ -61,4 +61,8 @@ export class RegistrationService {
     return this.httpClient.get("http://localhost:8080/rest-api/membership/" + userId) as Observable<any>
   }
 
+  proba() {
+    return this.httpClient.get("http://localhost:8080/rest-api/proba") as Observable<any>
+  }
+
 }

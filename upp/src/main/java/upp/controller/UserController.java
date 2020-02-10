@@ -1,5 +1,7 @@
 package upp.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ import org.camunda.bpm.engine.rest.dto.identity.UserCredentialsDto;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -118,6 +121,8 @@ public class UserController {
 
 		identityService.saveUser(camundaUser);
 
+		customUser.setHasActiveFee(false);
+		
 		customUser.setRole("guest");
 		customUser.setPassword(camundaUser.getPassword());
 		userService.save(customUser);
@@ -234,7 +239,13 @@ public class UserController {
 		User camundaUser = null;
 		if (customUser != null) {
 			// TODO: inbuilt checker
-			identityService.setAuthenticatedUserId(customUser.getUsername());
+			//ProcessEngines.getDefaultProcessEngine().getIdentityService().setAuthenticatedUserId(customUser.getUsername());
+			identityService.setAuthentication(customUser.getUsername(), null);
+			IdentityService test = identityService;
+			String korisnikId = test.getCurrentAuthentication().getUserId();
+			long id = Thread.currentThread().getId();
+			//identityService.setAuthenticatedUserId(customUser.getUsername());
+			Authentication currentAuthentication = ProcessEngines.getDefaultProcessEngine().getIdentityService().getCurrentAuthentication();
 			camundaUser = identityService.createUserQuery().userId(customUser.getUsername()).singleResult();
 			// runtimeService.setVariable(processInstanceId, "camundaUser", camundaUser);
 			// runtimeService.setVariable(processInstanceId, "customUser", customUser);
@@ -284,6 +295,14 @@ public class UserController {
 			}
 		}
 		return new ResponseEntity<String>(gson.toJson(instanceId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/proba")
+	public ResponseEntity<Object> proba() throws URISyntaxException{
+		URI uri = new URI("redirect:http://localhost:4200/mail-confirmed");
+	    HttpHeaders httpHeaders = new HttpHeaders();
+	    httpHeaders.setLocation(uri);
+	    return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
 	}
 
 }

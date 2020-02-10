@@ -1,5 +1,7 @@
 package upp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,13 @@ public class MagazineService {
 	
 	public ScienceMagazine findById(Long id) {
 		return repo.findById(id).get();
+	}
+	
+	public List<ScienceMagazine> findAll(){
+		return repo.findAll();
+	}
+	
+	public ScienceMagazine findByName(String name) {
+		return repo.findByName(name);
 	}
 }

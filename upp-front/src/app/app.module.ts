@@ -17,6 +17,9 @@ import { TaskComponent } from './registration/account/profile/task/task.componen
 import { ScienceMagazineComponent } from './science-magazine/science-magazine.component';
 import { EditorProfileComponent } from './registration/account/profile/editor-profile/editor-profile.component';
 import { EditorsAndReviewersComponent } from './science-magazine/editors-and-reviewers/editors-and-reviewers.component';
+import { AuthorProfileComponent } from './registration/account/profile/author-profile/author-profile.component';
+import { ArticleTaskComponent } from './article/article-task/article-task.component';
+import { ArticleTaskChosenComponent } from './article/article-task/article-task-chosen/article-task-chosen.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { EditorsAndReviewersComponent } from './science-magazine/editors-and-rev
     TaskComponent,
     ScienceMagazineComponent,
     EditorProfileComponent,
-    EditorsAndReviewersComponent
+    EditorsAndReviewersComponent,
+    AuthorProfileComponent,
+    ArticleTaskComponent,
+    ArticleTaskChosenComponent
   ],
   imports: [
     BrowserModule,

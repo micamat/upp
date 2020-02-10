@@ -9,6 +9,9 @@ import { TaskComponent } from './registration/account/profile/task/task.componen
 import { EditorProfileComponent } from './registration/account/profile/editor-profile/editor-profile.component';
 import { ScienceMagazineComponent } from './science-magazine/science-magazine.component';
 import { EditorsAndReviewersComponent } from './science-magazine/editors-and-reviewers/editors-and-reviewers.component';
+import { AuthorProfileComponent } from './registration/account/profile/author-profile/author-profile.component';
+import { ArticleTaskComponent } from './article/article-task/article-task.component';
+import { ArticleTaskChosenComponent } from './article/article-task/article-task-chosen/article-task-chosen.component';
 
 const routes: Routes = [
   {
@@ -46,6 +49,18 @@ const routes: Routes = [
   {
     path: "editors-and-reviewers",
     component: EditorsAndReviewersComponent
+  },
+  {
+    path: "author-profile",
+    component: AuthorProfileComponent
+  },
+  {
+    path: "article-task",
+    component: ArticleTaskComponent
+  },
+  {
+    path: "article-task-chosen",
+    component: ArticleTaskChosenComponent
   }
 ];
 

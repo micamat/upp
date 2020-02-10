@@ -3,11 +3,14 @@ package upp.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 @Entity
 public class ScienceMagazine implements Serializable{
 	@Id
@@ -29,6 +32,9 @@ public class ScienceMagazine implements Serializable{
 	private String reviewers;
 	@Column
 	private String mainEditorId;
+	
+	@OneToMany(mappedBy = "magazine", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Article> articles;
 	
 	public String getName() {
 		return name;

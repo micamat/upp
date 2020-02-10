@@ -1,0 +1,5 @@
+<mat-nav-list *ngFor="let task of userTasks" (click)="taskChosen(task)">
+  <mat-list-item>
+    {{task.name}}
+  </mat-list-item>
+</mat-nav-list>

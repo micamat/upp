@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.IdentityService;
+import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.form.FormField;
-import org.camunda.bpm.engine.form.FormProperty;
-import org.camunda.bpm.engine.form.FormType;
 import org.camunda.bpm.engine.form.TaskFormData;
+import org.camunda.bpm.engine.impl.identity.Authentication;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +69,9 @@ public class MagazineController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/add-magazine/{taskId}/{processInstanceId}/{editorId}", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<ScienceMagazine> newMagazine(@RequestBody List<FormFieldDataDto> formFieldData, @PathVariable String taskId, @PathVariable String processInstanceId, @PathVariable String editorId){
+		Authentication auth = ProcessEngines.getDefaultProcessEngine().getIdentityService().getCurrentAuthentication();
+		IdentityService test = identityService;
+		long id = Thread.currentThread().getId();
 		ScienceMagazine magazine = new ScienceMagazine();
 		for (FormFieldDataDto field : formFieldData) {
 			if (field.getFieldId().equals("name")) {

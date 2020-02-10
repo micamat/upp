@@ -46,12 +46,15 @@ export class LoginComponent implements OnInit {
               localStorage.setItem("processInstanceId", instance);
               this.registrationService.findMembership(loggedUser.id).subscribe(
                 res => {
-                  if (res == "editor") {
-                    window.location.href = "/editor-profile";
-                  }
-                  else {
-                    window.location.href = "/profile";
-                  }
+                  //if (res == "editor") {
+                  //window.location.href = "/editor-profile";
+                  //}
+                  //else if (res == "author") {
+                  window.location.href = "/article-task";
+                  //}
+                  //else {
+                  //window.location.href = "/profile";
+                  //}
                 }
               );
             },
